@@ -22,8 +22,8 @@ public class ProjectSpecifications extends UtilClass{
 	}
 	
 	@DataProvider(name = "getData")
-	public String[][] getInputData() throws IOException {
-		String[][] data = readExcel(sheetName);
+	public Object[][] getInputData() throws IOException {
+		Object[][] data = readExcel(sheetName);
 		return data;	
 	}
 	

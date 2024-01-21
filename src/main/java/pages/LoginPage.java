@@ -1,7 +1,5 @@
 package pages;
 
-
-
 import org.openqa.grid.web.servlet.handler.WebDriverRequest;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
@@ -10,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import base.ProjectSpecifications;
+import net.bytebuddy.asm.Advice.OffsetMapping.ForOrigin.Renderer.ForReturnTypeName;
 
 public class LoginPage extends ProjectSpecifications{
 	
@@ -23,34 +22,36 @@ public class LoginPage extends ProjectSpecifications{
 	@FindBy (xpath = "//input[@type='password']")
 	WebElement pswd;
 	
-	@FindBy (xpath = "(//div[text()='Log In'])[2]")
+	@FindBy (xpath = "//div[@data-testid='login-cta']")
 	WebElement loginbtn;
+	//div[text()='LOGIN']
 	
-	
-	public LoginPage() {
-		PageFactory.initElements(driver, this);
+	public  LoginPage() {
+		this.driver= driver;
+		PageFactory.initElements(driver,this);
 	}
 	
-    public void radiobtn() {
-    	click(emailRadioButton);
-    }
+	public  LoginPage Emailradiobutton() {
+		click(emailRadioButton);	
 	
-	public void emailTextBox(String emailTextBoxvalue) {
-		sendKeys(emailTextBox,emailTextBoxvalue);
+			return this;
+		}
+	
+	public LoginPage emailfield(String email) {
+		sendKeys(emailTextBox, email);
+		return this;
 	}
 	
-	public void pswd(String pswdvalue) throws InterruptedException {
-		Thread.sleep(3000);
-		sendKeys(pswd, pswdvalue);
-	}
-
 	
-	public void loginbtn() throws InterruptedException {
-		//sendKeys_Tab_Enter(loginbtn);
-		//loginbtn.sendKeys(Keys.TAB);
-        driver.switchTo().alert().dismiss();
-		Thread.sleep(3000);
-		click(loginbtn);
-		//Click_ByJS(loginbtn);
-	}
+		public  LoginPage loginpassword(String password) {
+			sendKeys(pswd,password);
+			return this;
+		}
+		
+		public LoginPage loginbutton1()  {
+			
+			click(loginbtn);
+			return this;
+		}
+		
 }

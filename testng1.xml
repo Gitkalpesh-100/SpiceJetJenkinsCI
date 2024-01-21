@@ -2,19 +2,28 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
 
-	<!--	<listeners>
+	<listeners>
 		<listener class-name="utils.Listeners"></listener>
-	</listeners>-->
+	</listeners>
 
 	<test thread-count="5" name="ChromeTest">
 		<parameter name="browser" value="Chrome" />
 		<classes>
-			 <!--	<class name="tests.TC01_SignUpFunctionality" />   -->
-			 		<class name="tests.TC02_LoginFunctionality" />
-			<!--  <class name="tests.TC03_OneWayTrip" />  -->
-			<!--  <class name="tests.TC04_RoundTrip" />  -->
+			<class name="tests.TC01_SignUpFunctionality" />   
+			<class name="tests.TC02_LoginFunctionality" />    
+			<class name="tests.TC03_OneWayTrip" />           
+			<class name="tests.TC04_RoundTrip" />             
+			<class name="tests.TC05_SelectFlightAndProceedToBooking" />           
+			<class name="tests.TC08_CheckInStatus" />         
+			<class name="tests.TC09_ManageBookingStatus" />   
+			<class name="tests.TC10_FlightStatus" />         
+			<class name="tests.TC11_OneWayTripNegative" />    
+			<class name="tests.TC12_CheckInStatusNegative" /> 
+			<class name="tests.TC13_FlightStatusNegative" />  
+	        <class name="tests.TC14_ManageBookingNegative" />
 		</classes>
 	</test> <!--
 	Test -->
 </suite> <!--
 Suite -->
+   

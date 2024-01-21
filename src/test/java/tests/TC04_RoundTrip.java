@@ -1,5 +1,7 @@
 package tests;
 
+import java.io.IOException;
+
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -9,23 +11,22 @@ import pages.RoundTripPage;
 public class TC04_RoundTrip extends ProjectSpecifications {
 
 	@BeforeTest()
-	public void setup (String From, String To, String DepartureDate, String ReturnDate){
-		sheetName = "RoundTrip";//same name for the sheet in excel sheet
+	public void setup() {
+		sheetName = "OneWayTrip";
 	}
 	
 	@Test(dataProvider = "getData")
-	public static void main(String[] args) {
+	public void RoundTrip(String From, String To, String DepartureDate) throws IOException, InterruptedException{
 		
 		RoundTripPage round = new RoundTripPage();
 		
 		round.RoundTripRadBtn();
 	    round.From(From);
 		round.To(To);
-		round.To(DepartureDate);
-		click(passengers);
-		click(currency);
-		click(SearchFlightBtn);
-		
+		round.Dates();
+		round.SearchFlightBtn();
+		Thread.sleep(5000);
+				
 	}
 
 }

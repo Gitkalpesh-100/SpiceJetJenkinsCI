@@ -1,5 +1,7 @@
 package tests;
 
+import java.io.IOException;
+
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -8,29 +10,23 @@ import pages.SelectFlightAndProceedToBookingPage;
 
 public class TC05_SelectFlightAndProceedToBooking extends ProjectSpecifications {
 
-	
 	@BeforeTest()
-	public void setup(String From, String To, String From, String DepartureDate ) {
+	public void setup() {
 		sheetName = "OneWayTrip";
 	}
-	
-	@Test
-	public void SelectFlightAndProceedToBooking() {
-		
+
+	@Test(dataProvider = "getData")
+	public void SelectFlightAndProceedToBooking(String From, String To, String DepartureDate)
+			throws IOException, InterruptedException {
+
+		SelectFlightAndProceedToBookingPage sf = new SelectFlightAndProceedToBookingPage();
+		sf.OneWayRadBtn();
+		sf.From(From);
+		sf.To(To);
+		sf.DepatureDate();
+		sf.SearchFlightBtn();
+		Thread.sleep(7000);	
+		sf.ContinueBtn();
+       
 	}
-	
-	SelectFlightAndProceedToBookingPage sf = new SelectFlightAndProceedToBookingPage();
-	
-	sf.From(From);
-	sf.To(To);
-	sf.RoundTripRadBtn();
-	sf.From(From);
-	sf.To(To);
-	sf.To(DepartureDate);
-	click(passengers);
-	click(currency);
-	click(SearchFlightBtn);
-	click(contiueButton);
-	
-	
 }

@@ -18,29 +18,23 @@ public class TC01_SignUpFunctionality extends ProjectSpecifications {
 	}
 	
 	@Test(dataProvider = "getData")
-	public void SignUPTest(String Title, String firstnameandmiddlename, String lastname,
-			               String CountryTerritoryofResidence, String DoB,
-			               String Mob, String email, String pswd, String cnfpswd
-			               ) throws IOException, InterruptedException {
+	public void SignUPTest(String Title, String firstnameandmiddlename, String lastname,String country,
+			                String DoB,String Mob, String email, String pswd, String cnfpswd
+			               ) throws InterruptedException {
 	
-		HomePage home = new HomePage();
-		home.signupbutton();
+		new HomePage(driver).
+		signupbutton().
+		PSignup().
+		firstname(firstnameandmiddlename).
+		lastname(lastname).
+		date(DoB).
+		mobile(Mob).
+		email(email).
+		pass(pswd).
+		cpass(cnfpswd).
+		checkbox().
+		submitbutton();
 		
-		SignUpPage signup = new SignUpPage();
-	    signup.selectTitle(Title);
-		signup.firstnameandmiddlename(firstnameandmiddlename);
-		signup.lastname(lastname);
-		signup.Country(CountryTerritoryofResidence);
-		signup.DoB(DoB);
-		signup.Mob(Mob);
-		signup.email(email);
-		signup.pswd(pswd);
-		signup.cnfpswd(cnfpswd);
-		
-		UtilClass.CaptureScreen();
-		home.scroll();
-		signup.checkbox1();
-		signup.submit1();
-		UtilClass.CaptureScreen();	
-	}	
+	}
 }
+

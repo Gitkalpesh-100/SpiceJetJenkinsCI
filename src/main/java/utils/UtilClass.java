@@ -78,6 +78,7 @@ public class UtilClass<HttpURLConnection> {
 	public void sendKeys(WebElement element, String value) {
 		element.sendKeys(value);
 	}
+	
 	public void sendKeys_Tab_Enter(WebElement element) throws InterruptedException {
 		element.sendKeys(Keys.TAB);
 		Thread.sleep(2000);
@@ -104,7 +105,8 @@ public class UtilClass<HttpURLConnection> {
 	
 	public void select(String elementvalue, WebElement selectTitle) {
         Select select = new Select(selectTitle);
-        select.selectByValue(elementvalue);	
+        selectTitle.click();
+        select.selectByVisibleText(elementvalue);	
 	}	
 	
 	/*
@@ -115,10 +117,14 @@ public class UtilClass<HttpURLConnection> {
 	*/
 	
 	public void click(WebElement element) {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		Explicit_Wait(element);
+		element.click();
+	}
+	
+	public void Explicit_Wait(WebElement element) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
 		wait.until(ExpectedConditions.visibilityOf(element));
 		wait.until(ExpectedConditions.elementToBeClickable(element));
-		element.click();
 	}
 	
 	public static String CaptureScreen() throws IOException {
@@ -158,37 +164,76 @@ public class UtilClass<HttpURLConnection> {
 	}
 	
 	
-	public static String[][] readExcel(String sheetName) throws IOException {
-
-		XSSFWorkbook book = new XSSFWorkbook("./data/Spicejet.xlsx");
+	
+	public Object[][] readExcel(String sheetName) throws IOException {
+		
+		XSSFWorkbook book = new XSSFWorkbook("./data/Spicejet_New.xlsx");
 		XSSFSheet sheet = book.getSheet(sheetName);
-		int rowCount = sheet.getLastRowNum();
-		short columnCount = sheet.getRow(0).getLastCellNum();
+		int rowcount= sheet.getLastRowNum();
 
-		String[][] data = new String[rowCount][columnCount];
-		for (int i = 1; i < rowCount; i++) {
+		int colcount = sheet.getRow(0).getLastCellNum();
+
+
+		Object[][] data= new Object[rowcount][colcount];
+
+
+		for(int i=1;i<=rowcount;i++) {
 			XSSFRow row = sheet.getRow(i);
-			for (int j = 0; j < columnCount; j++) {
-				XSSFCell cell = row.getCell(j);
 
-				switch (cell.getCellType()) {
-				case STRING:
-					data[i - 1][j] = cell.getStringCellValue();
-					break;
-				case NUMERIC:
+			for(int j=0;j<colcount;j++) {
+				XSSFCell cell= row.getCell(j);
 
-					data[i - 1][j] = String.valueOf(cell.getNumericCellValue());
-					break;
 
-				default:
-					data[i - 1][j] = cell.getStringCellValue();
-
-				}
-			}
+				data[i-1][j] = cell.getStringCellValue();
+				System.out.println(cell.getStringCellValue());
+			}        	
 		}
 		book.close();
-		return data;
+		return data;       
 	}	
+	 
+		
+		/*
+		  try (XSSFWorkbook book = new XSSFWorkbook("./data/DataSheet.xlsx")) {
+	XSSFSheet sheet = book.getSheet(sheetName);
+    int rowCount = sheet.getLastRowNum() + 1; // Include header row
+
+    int colCount = sheet.getRow(0).getLastCellNum();
+
+    Object[][] data = new Object[rowCount - 1][colCount];
+
+    for (int i = 1; i < rowCount; i++) {
+        XSSFRow row = sheet.getRow(i);
+
+        for (int j = 0; j < colCount; j++) {
+            XSSFCell cell = row.getCell(j);
+
+            if (cell != null) {
+                switch (cell.getCellType()) {
+                    case STRING:
+                        data[i - 1][j] = cell.getStringCellValue();
+                        break;
+                    case NUMERIC:
+                        data[i - 1][j] = cell.getNumericCellValue();
+                        break;
+                    // Handle other cell types if necessary
+                    default:
+                        data[i - 1][j] = null; // or handle accordingly
+                        break;
+                }
+            } else {
+                data[i - 1][j] = null; // Handle null cells if necessary
+            }
+
+            System.out.print(data[i - 1][j] + "\t");
+        }
+        System.out.println();
+    }
+    return data;
+}
+*/
+
+	
 	
 	
 	/*
