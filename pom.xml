@@ -27,12 +27,6 @@
 		</dependency>
 
 
-		<dependency>
-			<groupId>CapStone1</groupId>
-			<artifactId>CapStone1</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
 		<dependency>
 			<groupId>com.aventstack</groupId>
